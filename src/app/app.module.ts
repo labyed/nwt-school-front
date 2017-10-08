@@ -2,16 +2,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // MATERIAL DESIGN MODULES
-import { MatToolbarModule } from '@angular/material';
+import { MatToolbarModule, MatCardModule } from '@angular/material';
+
+import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule
   ],
   providers: [],
-  bootstrap: []
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
