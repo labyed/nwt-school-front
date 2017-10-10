@@ -1,6 +1,7 @@
 // CORE MODULES
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 // MATERIAL DESIGN MODULES
 import { MatToolbarModule, MatCardModule, MatButtonModule, MatListModule, MatIconModule } from '@angular/material';
 
@@ -11,6 +12,7 @@ import { HomeComponent } from './home/home.component';
   declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
+    HttpModule,
     MatToolbarModule,
     MatCardModule,
     MatButtonModule,
