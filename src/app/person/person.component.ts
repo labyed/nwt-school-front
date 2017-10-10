@@ -31,4 +31,11 @@ export class PersonComponent implements OnInit {
    */
   ngOnInit() {
   }
+
+  /**
+   * Returns random people
+   */
+  random() {
+    this._person = PEOPLE[ Math.round(Math.random() * PEOPLE.length) ];
+  }
 }
