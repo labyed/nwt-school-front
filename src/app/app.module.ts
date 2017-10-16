@@ -2,6 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 // MATERIAL DESIGN MODULES
 import { MatToolbarModule, MatCardModule, MatButtonModule, MatListModule, MatIconModule } from '@angular/material';
 
@@ -14,6 +15,7 @@ import { PersonComponent } from './person/person.component';
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     MatToolbarModule,
     MatCardModule,
     MatButtonModule,
