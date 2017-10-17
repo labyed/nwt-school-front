@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/mergeMap';
+
 @Component({
   selector: 'nwt-people',
   templateUrl: './people.component.html',
@@ -44,6 +48,18 @@ export class PeopleComponent implements OnInit {
    */
   ngOnInit() {
     this._http.get(this._backendURL.allPeople)
+      .flatMap(_ => !!_ ? Observable.of(_) : Observable.of([]))
       .subscribe((people: any[]) => this._people = people);
+  }
+
+  /**
+   * Function to delete one person
+   *
+   * @param person
+   */
+  delete(person: any) {
+    this._http.delete(this._backendURL.onePeople.replace(':id', person.id))
+      .flatMap(_ => !!_ ? Observable.of(_) : Observable.of([]))
+      .subscribe( (people: any[]) => this._people = people);
   }
 }

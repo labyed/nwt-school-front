@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/mergeMap';
+
 @Component({
   selector: 'nwt-person',
   templateUrl: './person.component.html',
@@ -44,6 +48,7 @@ export class PersonComponent implements OnInit {
    */
   ngOnInit() {
     this._http.get(this._backendURL.allPeople)
+      .flatMap(_ => !!_ ? Observable.of(_) : Observable.of([{}]))
       .subscribe((persons: any[]) => this._person = persons.shift());
   }
 
@@ -52,6 +57,7 @@ export class PersonComponent implements OnInit {
    */
   random() {
     this._http.get(this._backendURL.randomPeople)
+      .flatMap(_ => !!_ ? Observable.of(_) : Observable.of({}))
       .subscribe((person: any) => this._person = person);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'nwt-card',
@@ -8,12 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CardComponent implements OnInit {
   // private property to store person value
   private _person: any;
+  // private property to store delete$ value
+  private _delete$: EventEmitter<any>;
 
   /**
    * Component constructor
    */
   constructor() {
     this._person = {};
+    this._delete$ = new EventEmitter();
   }
 
   /**
@@ -36,8 +39,26 @@ export class CardComponent implements OnInit {
   }
 
   /**
+   * Returns private property _delete$
+   *
+   * @returns {EventEmitter<any>}
+   */
+  @Output('personDelete') get delete$(): EventEmitter<any> {
+    return this._delete$;
+  }
+
+  /**
    * OnInit implementation
    */
   ngOnInit() {
+  }
+
+  /**
+   * Function to emit event to delete current person
+   *
+   * @param person
+   */
+  delete(person: any) {
+    this._delete$.emit(person);
   }
 }
