@@ -123,7 +123,7 @@ export class PeopleService {
             .flatMap(_ => _ > -1 ?
                 Observable.of(_) :
                 Observable.throw(new Error(`People with id '${id}' not found`))
-            )
+            );
     }
 
     /**
