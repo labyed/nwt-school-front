@@ -105,7 +105,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
          * @returns {Observable<any>}
          */
         delete(id) {
-            return this._findPeopleIndexOfList(id).do(_ => console.log(_))
+            return this._findPeopleIndexOfList(id)
                 .flatMap(_ => {
                 this._people.splice(_, 1);
                 return Observable_1.Observable.of(this._people);
