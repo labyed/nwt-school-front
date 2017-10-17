@@ -37,7 +37,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
         onDelete(request, reply) {
             this._peopleService.delete(request.params.id)
                 .do(_ => console.log('DeleteOnePeopleRoute.onDelete():', _))
-                .subscribe(_ => reply(_), e => reply(Boom.notFound(e.message)));
+                .subscribe(_ => (!_ || _.length === 0) ? reply().code(204) : reply(_), e => reply(Boom.notFound(e.message)));
         }
     };
     DeleteOnePeopleRoute = __decorate([
