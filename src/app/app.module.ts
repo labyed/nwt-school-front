@@ -11,9 +11,10 @@ import { APP_ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PersonComponent } from './person/person.component';
+import { PeopleComponent } from './people/people.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PersonComponent],
+  declarations: [AppComponent, HomeComponent, PersonComponent, PeopleComponent],
   imports: [
     BrowserModule,
     HttpModule,
