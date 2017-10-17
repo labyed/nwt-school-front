@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 // MATERIAL DESIGN MODULES
 import { MatToolbarModule, MatCardModule, MatButtonModule, MatListModule, MatIconModule } from '@angular/material';
 
-// import { APP_ROUTES } from './app.routes';
+import { APP_ROUTES } from './app.routes';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -23,7 +23,7 @@ import { PersonComponent } from './person/person.component';
     MatButtonModule,
     MatListModule,
     MatIconModule,
-    // APP_ROUTES
+    APP_ROUTES
   ],
   providers: [],
   bootstrap: [AppComponent]
