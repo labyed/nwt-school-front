@@ -101,7 +101,7 @@ export class PeopleService {
      * @returns {Observable<any>}
      */
     delete(id: string): Observable<any> {
-        return this._findPeopleIndexOfList(id).do(_ => console.log(_))
+        return this._findPeopleIndexOfList(id)
             .flatMap(_ => {
                this._people.splice(_, 1);
                 return Observable.of(this._people);
