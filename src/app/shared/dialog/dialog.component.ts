@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'nwt-add-dialog',
@@ -12,8 +12,19 @@ export class DialogComponent implements OnInit {
    * Component constructor
    *
    * @param {MatDialogRef<DialogComponent>} _dialogRef
+   * @param _data
    */
-  constructor(private _dialogRef: MatDialogRef<DialogComponent>) { }
+  constructor(private _dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) private _data: any) {
+  }
+
+  /**
+   * Returns data passed in dialog open
+   *
+   * @returns {any}
+   */
+  get data(): any {
+    return this._data;
+  }
 
   /**
    * OnInit implementation
