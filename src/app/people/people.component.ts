@@ -5,9 +5,8 @@ import { environment } from '../../environments/environment';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { DialogComponent } from '../shared/dialog/dialog.component';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/defaultIfEmpty';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'nwt-people',
@@ -65,7 +64,8 @@ export class PeopleComponent implements OnInit {
    */
   ngOnInit() {
     this._http.get(this._backendURL.allPeople)
-      .flatMap(_ => !!_ ? Observable.of(_) : Observable.of([]))
+      .filter(_ => !!_)
+      .defaultIfEmpty([])
       .subscribe((people: any[]) => this._people = people);
   }
 
@@ -76,7 +76,8 @@ export class PeopleComponent implements OnInit {
    */
   delete(person: any) {
     this._http.delete(this._backendURL.onePeople.replace(':id', person.id))
-      .flatMap(_ => !!_ ? Observable.of(_) : Observable.of([]))
+      .filter(_ => !!_)
+      .defaultIfEmpty([])
       .subscribe( (people: any[]) => this._people = people);
   }
 
@@ -89,8 +90,7 @@ export class PeopleComponent implements OnInit {
 
     // open modal
     this._peopleDialog = this._dialog.open(DialogComponent, {
-      width: '500px',
-      data: {}
+      width: '500px'
     });
 
     // subscribe to afterClosed observable to set dialog status and do process
