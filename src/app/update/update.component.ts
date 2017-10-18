@@ -7,9 +7,9 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { DialogComponent } from '../shared/dialog/dialog.component';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'nwt-update',
@@ -54,8 +54,9 @@ export class UpdateComponent implements OnInit {
 
         // subscribe to afterClosed observable to set dialog status and do process
         this._peopleDialog.afterClosed()
-          .flatMap(_ => !!_ ? this._update(_) : Observable.of(null))
-          .subscribe(_ => this._router.navigate(['/people']));
+          .filter(_ => !!_)
+          .flatMap(_ => this._update(_))
+          .subscribe(null, null, () => this._router.navigate(['/people']));
       });
   }
 
