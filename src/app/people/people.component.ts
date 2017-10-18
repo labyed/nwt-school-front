@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/defaultIfEmpty';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'nwt-people',
@@ -48,7 +47,8 @@ export class PeopleComponent implements OnInit {
    */
   ngOnInit() {
     this._http.get(this._backendURL.allPeople)
-      .flatMap(_ => !!_ ? Observable.of(_) : Observable.of([]))
+      .filter(_ => !!_)
+      .defaultIfEmpty([])
       .subscribe((people: any[]) => this._people = people);
   }
 
@@ -59,7 +59,8 @@ export class PeopleComponent implements OnInit {
    */
   delete(person: any) {
     this._http.delete(this._backendURL.onePeople.replace(':id', person.id))
-      .flatMap(_ => !!_ ? Observable.of(_) : Observable.of([]))
+      .filter(_ => !!_)
+      .defaultIfEmpty([])
       .subscribe( (people: any[]) => this._people = people);
   }
 }
