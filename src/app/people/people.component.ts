@@ -6,7 +6,6 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { DialogComponent } from '../shared/dialog/dialog.component';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/defaultIfEmpty';
 import 'rxjs/add/operator/filter';
@@ -78,7 +77,7 @@ export class PeopleComponent implements OnInit {
     this._http.delete(this._backendURL.onePeople.replace(':id', person.id))
       .filter(_ => !!_)
       .defaultIfEmpty([])
-      .subscribe( (people: any[]) => this._people = people);
+      .subscribe((people: any[]) => this._people = people);
   }
 
   /**
@@ -96,13 +95,13 @@ export class PeopleComponent implements OnInit {
 
     // subscribe to afterClosed observable to set dialog status and do process
     this._peopleDialog.afterClosed()
-      .flatMap(_ => !!_ ? this._add(_) : Observable.of(this._people))
-      .subscribe((people: any[]) => {
-        this._people = people;
-        this._dialogStatus = 'inactive';
-      }, _ => {
-        this._dialogStatus = 'inactive';
-      });
+      .filter(_ => !!_)
+      .flatMap(_ => this._add(_))
+      .subscribe(
+        (people: any[]) => this._people = people,
+        _ => this._dialogStatus = 'inactive',
+        () => this._dialogStatus = 'inactive'
+      );
   }
 
   /**
