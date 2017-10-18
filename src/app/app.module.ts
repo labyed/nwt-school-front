@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 // MATERIAL DESIGN MODULES
 import {
 MatToolbarModule,
@@ -24,15 +25,17 @@ import { PersonComponent } from './person/person.component';
 import { PeopleComponent } from './people/people.component';
 import { CardComponent } from './shared/card/card.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
+import { FormComponent } from './shared/form/form.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PersonComponent, PeopleComponent, CardComponent, DialogComponent],
+  declarations: [AppComponent, HomeComponent, PersonComponent, PeopleComponent, CardComponent, DialogComponent, FormComponent],
   entryComponents: [DialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
+    FormsModule,
     MatToolbarModule,
     MatCardModule,
     MatButtonModule,

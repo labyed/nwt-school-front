@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 import { MatDialog, MatDialogRef } from '@angular/material';
@@ -64,9 +64,7 @@ export class PeopleComponent implements OnInit {
    * OnInit implementation
    */
   ngOnInit() {
-    this._http.get(this._backendURL.allPeople)
-      .flatMap(_ => !!_ ? Observable.of(_) : Observable.of([]))
-      .subscribe((people: any[]) => this._people = people);
+    this._getAll().subscribe((people: any[]) => this._people = people);
   }
 
   /**
@@ -77,7 +75,7 @@ export class PeopleComponent implements OnInit {
   delete(person: any) {
     this._http.delete(this._backendURL.onePeople.replace(':id', person.id))
       .flatMap(_ => !!_ ? Observable.of(_) : Observable.of([]))
-      .subscribe( (people: any[]) => this._people = people);
+      .subscribe((people: any[]) => this._people = people);
   }
 
   /**
@@ -94,6 +92,39 @@ export class PeopleComponent implements OnInit {
     });
 
     // subscribe to afterClosed observable to set dialog status and do process
-    this._peopleDialog.afterClosed().subscribe(_ => this._dialogStatus = 'inactive');
+    this._peopleDialog.afterClosed()
+      .flatMap(_ => !!_ ? this._add(_) : Observable.of(this._people))
+      .subscribe((people: any[]) => {
+        this._people = people;
+        this._dialogStatus = 'inactive';
+      }, _ => {
+        this._dialogStatus = 'inactive';
+      });
+  }
+
+  /**
+   * Add new person and fetch all people to refresh the list
+   *
+   * @param person to add
+   *
+   * @returns {Observable<any[]>}
+   *
+   * @private
+   */
+  private _add(person: any): Observable<any[]> {
+    const requestOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this._http.post(this._backendURL.allPeople, person, requestOptions).flatMap(_ => this._getAll());
+  }
+
+  /**
+   * Returns Observable of all people
+   *
+   * @returns {Observable<any[]>}
+   *
+   * @private
+   */
+  private _getAll(): Observable<any[]> {
+    return this._http.get(this._backendURL.allPeople)
+      .flatMap(_ => !!_ ? Observable.of(_) : Observable.of([]));
   }
 }
