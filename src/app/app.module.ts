@@ -7,14 +7,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 // MATERIAL DESIGN MODULES
 import {
-MatToolbarModule,
-MatCardModule,
-MatButtonModule,
-MatListModule,
-MatIconModule,
-MatCheckboxModule,
-MatDialogModule,
-MatInputModule
+  MatToolbarModule,
+  MatCardModule,
+  MatButtonModule,
+  MatListModule,
+  MatIconModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatInputModule
 } from '@angular/material';
 
 import { APP_ROUTES } from './app.routes';
@@ -26,9 +26,11 @@ import { PeopleComponent } from './people/people.component';
 import { CardComponent } from './shared/card/card.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import { FormComponent } from './shared/form/form.component';
+import { UpdateComponent } from './update/update.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PersonComponent, PeopleComponent, CardComponent, DialogComponent, FormComponent],
+  declarations: [AppComponent, HomeComponent, PersonComponent, PeopleComponent, CardComponent,
+    DialogComponent, FormComponent, UpdateComponent],
   entryComponents: [DialogComponent],
   imports: [
     BrowserModule,

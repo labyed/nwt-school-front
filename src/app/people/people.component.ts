@@ -88,7 +88,7 @@ export class PeopleComponent implements OnInit {
     // open modal
     this._peopleDialog = this._dialog.open(DialogComponent, {
       width: '500px',
-      data: {}
+      disableClose: true
     });
 
     // subscribe to afterClosed observable to set dialog status and do process

@@ -1,28 +1,54 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'nwt-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnChanges {
+  // private property to store update mode flag
+  private _isUpdateMode: boolean;
+  // private property to store model value
+  private _model: any;
   // private property to store cancel$ value
   private _cancel$: EventEmitter<any>;
-  // private property to store add$ value
-  private _add$: EventEmitter<any>;
-  // private property to store photo src
-  private _photo: string;
-  // private property to store isManager flag
-  private _isManager: boolean;
+  // private property to store submit$ value
+  private _submit$: EventEmitter<any>;
 
   /**
    * Component constructor
    */
   constructor() {
-    this._add$ = new EventEmitter();
+    this._submit$ = new EventEmitter();
     this._cancel$ = new EventEmitter();
-    this._photo = 'https://randomuser.me/api/portraits/lego/6.jpg';
-    this._isManager = false;
+  }
+
+  /**
+   * Sets private property _model
+   *
+   * @param model
+   */
+  @Input()
+  set model(model: any) {
+    this._model = model;
+  }
+
+  /**
+   * Returns private property _model
+   *
+   * @returns {any}
+   */
+  get model(): any {
+    return this._model;
+  }
+
+  /**
+   * Returns private property _isUpdateMode
+   *
+   * @returns {boolean}
+   */
+  get isUpdateMode(): boolean {
+    return this._isUpdateMode;
   }
 
   /**
@@ -30,41 +56,40 @@ export class FormComponent implements OnInit {
    *
    * @returns {EventEmitter<any>}
    */
-  @Output('cancel') get cancel$(): EventEmitter<any> {
+  @Output('cancel')
+  get cancel$(): EventEmitter<any> {
     return this._cancel$;
   }
 
   /**
-   * Returns private property _add$
+   * Returns private property _submit$
    *
    * @returns {EventEmitter<any>}
    */
-  @Output('personAdd') get add$(): EventEmitter<any> {
-    return this._add$;
-  }
-
-  /**
-   * Returns private property _photo
-   *
-   * @returns {string}
-   */
-  get photo(): string {
-    return this._photo;
-  }
-
-  /**
-   * Returns private property _isManager
-   *
-   * @returns {boolean}
-   */
-  get isManager(): boolean {
-    return this._isManager;
+  @Output('submit')
+  get submit$(): EventEmitter<any> {
+    return this._submit$;
   }
 
   /**
    * OnInit implementation
    */
   ngOnInit() {
+  }
+
+  /**
+   * Function to handle component update
+   *
+   * @param record
+   */
+  ngOnChanges(record) {
+    if (record.model && record.model.currentValue && record.model.currentValue.address) {
+      this._model = record.model.currentValue;
+      this._isUpdateMode = true;
+    } else {
+      this._model = { address: {}, photo: 'https://randomuser.me/api/portraits/lego/6.jpg' };
+      this._isUpdateMode = false;
+    }
   }
 
   /**
@@ -75,11 +100,9 @@ export class FormComponent implements OnInit {
   }
 
   /**
-   * Function to emit event to add new person
-   *
-   * @param person
+   * Function to emit event to submit form and person
    */
-  add(person: any) {
-    this._add$.emit(person);
+  submit() {
+    this._submit$.emit(this._model);
   }
 }
