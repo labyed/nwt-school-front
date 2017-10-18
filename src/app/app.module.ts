@@ -1,10 +1,20 @@
 // CORE MODULES
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 // MATERIAL DESIGN MODULES
-import { MatToolbarModule, MatCardModule, MatButtonModule, MatListModule, MatIconModule } from '@angular/material';
+import {
+MatToolbarModule,
+MatCardModule,
+MatButtonModule,
+MatListModule,
+MatIconModule,
+MatCheckboxModule,
+MatDialogModule,
+MatInputModule
+} from '@angular/material';
 
 import { APP_ROUTES } from './app.routes';
 
@@ -13,11 +23,14 @@ import { HomeComponent } from './home/home.component';
 import { PersonComponent } from './person/person.component';
 import { PeopleComponent } from './people/people.component';
 import { CardComponent } from './shared/card/card.component';
+import { DialogComponent } from './shared/dialog/dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PersonComponent, PeopleComponent, CardComponent],
+  declarations: [AppComponent, HomeComponent, PersonComponent, PeopleComponent, CardComponent, DialogComponent],
+  entryComponents: [DialogComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
     MatToolbarModule,
@@ -25,6 +38,9 @@ import { CardComponent } from './shared/card/card.component';
     MatButtonModule,
     MatListModule,
     MatIconModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatInputModule,
     APP_ROUTES
   ],
   providers: [],
