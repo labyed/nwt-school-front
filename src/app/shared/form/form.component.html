@@ -2,7 +2,7 @@
 <h2 mat-dialog-title *ngIf="!isUpdateMode">Create new person</h2>
 
 <mat-dialog-content>
-  <form #f="ngForm">
+  <form novalidate #f="ngForm">
 
     <p *ngIf="isUpdateMode">
       <mat-form-field class="full-width">
