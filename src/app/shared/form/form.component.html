@@ -13,11 +13,23 @@
     <table class="full-width" cellspacing="0">
       <tr>
         <td>
-          <mat-form-field class="full-width">
-            <input matInput placeholder="First name *" [(ngModel)]="model.firstname" name="firstname"/>
+          <mat-form-field class="full-width" [class.mgb15]="firstname.dirty && firstname.invalid">
+            <input matInput placeholder="First name" [(ngModel)]="model.firstname" minlength="2" required name="firstname" #firstname="ngModel"/>
+            <mat-error *ngIf="firstname.dirty && firstname.hasError('required')">
+              First name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="firstname.dirty && firstname.hasError('minlength')">
+              First name is <strong>2 chars min</strong>
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width">
-            <input matInput placeholder="Last Name *" [(ngModel)]="model.lastname" name="lastname"/>
+            <input matInput placeholder="Last Name" [(ngModel)]="model.lastname" minlength="2" required name="lastname" #lastname="ngModel"/>
+            <mat-error *ngIf="lastname.dirty && lastname.hasError('required')">
+              Last name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="lastname.dirty && lastname.hasError('minlength')">
+              Last name is <strong>2 chars min</strong>
+            </mat-error>
           </mat-form-field>
         </td>
         <td class="align-right">
@@ -29,7 +41,10 @@
 
     <p>
       <mat-form-field class="full-width">
-        <input matInput placeholder="Email *" [(ngModel)]="model.email" name="email"/>
+        <input matInput placeholder="Email" [(ngModel)]="model.email" required name="email" #email="ngModel"/>
+        <mat-error *ngIf="email.dirty && email.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
       </mat-form-field>
     </p>
 
@@ -56,7 +71,13 @@
 
     <p>
       <mat-form-field class="full-width">
-        <input matInput placeholder="Phone * (ex: 0612345678)" [(ngModel)]="model.phone" name="phone"/>
+        <input matInput placeholder="Phone (ex: 0612345678)" [(ngModel)]="model.phone" pattern="\d{10}" required name="phone" #phone="ngModel"/>
+        <mat-error *ngIf="phone.dirty && phone.hasError('required')">
+          Phone is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="phone.dirty && phone.hasError('pattern')">
+          Phone number must be <strong>10 digits</strong>
+        </mat-error>
       </mat-form-field>
     </p>
 
@@ -70,5 +91,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button type="button" (click)="cancel()">Cancel</button>
-  <button mat-button color="primary" type="submit" (click)="submit()">Save</button>
+  <button mat-button color="primary" type="submit" (click)="submit()" [disabled]="f.invalid">Save</button>
 </mat-dialog-actions>
