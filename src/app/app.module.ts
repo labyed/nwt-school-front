@@ -28,10 +28,11 @@ import { DialogComponent } from './shared/dialog/dialog.component';
 import { FormComponent } from './shared/form/form.component';
 import { UpdateComponent } from './update/update.component';
 import { PeopleService } from './shared/people-service/people.service';
+import { NaPipe } from './shared/na-pipe/na.pipe';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, PersonComponent, PeopleComponent, CardComponent,
-    DialogComponent, FormComponent, UpdateComponent],
+    DialogComponent, FormComponent, UpdateComponent, NaPipe],
   entryComponents: [DialogComponent],
   imports: [
     BrowserModule,
