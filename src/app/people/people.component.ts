@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { DialogComponent } from '../shared/dialog/dialog.component';
@@ -20,13 +21,16 @@ export class PeopleComponent implements OnInit {
   private _dialogStatus: string;
   // private property to store dialog reference
   private _peopleDialog: MatDialogRef<DialogComponent>;
+  // private property to store view value
+  private _view: string;
 
   /**
    * Component constructor
    */
-  constructor(private _peopleService: PeopleService, private _dialog: MatDialog) {
+  constructor(private _router: Router, private _peopleService: PeopleService, private _dialog: MatDialog) {
     this._people = [];
     this._dialogStatus = 'inactive';
+    this._view = 'card';
   }
 
   /**
@@ -45,6 +49,15 @@ export class PeopleComponent implements OnInit {
    */
   get dialogStatus(): string {
     return this._dialogStatus;
+  }
+
+  /**
+   * Returns private property _view
+   *
+   * @returns {string}
+   */
+  get view(): string {
+    return this._view;
   }
 
   /**
@@ -89,6 +102,22 @@ export class PeopleComponent implements OnInit {
         _ => this._dialogStatus = 'inactive',
         () => this._dialogStatus = 'inactive'
       );
+  }
+
+  /**
+   * Function to switch view
+   */
+  switchView() {
+    this._view = (this._view === 'card') ? 'list' : 'card';
+  }
+
+  /**
+   * Function to navigate to current person
+   *
+   * @param person
+   */
+  navigate(person) {
+    this._router.navigate(['/person', person.id]);
   }
 
   /**

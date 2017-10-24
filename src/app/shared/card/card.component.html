@@ -2,11 +2,11 @@
   <mat-card-title-group>
     <img mat-card-mat-image src="{{ person.photo }}">
     <mat-card-title>
-      <a href="javascript:void(0);">
+      <a [routerLink]="['/person', person.id]">
         <span>{{ person.firstname }} {{ person.lastname }}</span>
       </a>
     </mat-card-title>
-    <mat-card-subtitle>{{ person.entity }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ person.entity | na }}</mat-card-subtitle>
     <mat-card-subtitle class="contact-info">
       <mat-icon svgIcon="icon-mail"></mat-icon>
       <a href="mailto:{{ person.firstname }} {{ person.lastname }}&lt;{{ person.email }}&gt;"
@@ -21,7 +21,7 @@
   <mat-card-content>
     <div class="contact-info">
       Manager&nbsp;:&nbsp;
-      <a href="javascript:void(0);">{{ person.manager | na }}</a>
+      <a class="managerLink" (click)="goToManagerIfExist()">{{ person.manager | na }}</a>
     </div>
     <div class="contact-info">
       Location&nbsp;:&nbsp;<a href="javascript:void(0);">DEVLAND</a>
