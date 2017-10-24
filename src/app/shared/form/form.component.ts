@@ -62,6 +62,15 @@ export class FormComponent implements OnInit {
   }
 
   /**
+   * Set private property _isManager
+   *
+   * @param {boolean} isManager
+   */
+  set isManager(isManager: boolean) {
+    this._isManager = this.isManager;
+  }
+
+  /**
    * OnInit implementation
    */
   ngOnInit() {
