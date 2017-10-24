@@ -27,6 +27,7 @@ import { CardComponent } from './shared/card/card.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import { FormComponent } from './shared/form/form.component';
 import { UpdateComponent } from './update/update.component';
+import { PeopleService } from './shared/people-service/people.service';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, PersonComponent, PeopleComponent, CardComponent,
@@ -48,7 +49,7 @@ import { UpdateComponent } from './update/update.component';
     MatInputModule,
     APP_ROUTES
   ],
-  providers: [],
+  providers: [PeopleService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

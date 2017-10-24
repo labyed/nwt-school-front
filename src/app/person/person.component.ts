@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { PeopleService } from '../shared/people-service/people.service';
 
 import 'rxjs/add/operator/defaultIfEmpty';
 import 'rxjs/add/operator/filter';
@@ -13,24 +12,12 @@ import 'rxjs/add/operator/filter';
 export class PersonComponent implements OnInit {
   // private property to store person value
   private _person: any;
-  // private property to store all backend URLs
-  private _backendURL: any;
 
   /**
    * Component constructor
    */
-  constructor(private _http: HttpClient) {
+  constructor(private _peopleService: PeopleService) {
     this._person = {};
-    this._backendURL = {};
-
-    // build backend base url
-    let baseUrl = `${environment.backend.protocol}://${environment.backend.host}`;
-    if (environment.backend.port) {
-      baseUrl += `:${environment.backend.port}`;
-    }
-
-    // build all backend urls
-    Object.keys(environment.backend.endpoints).forEach(k => this._backendURL[k] = `${baseUrl}${environment.backend.endpoints[k]}`);
   }
 
   /**
@@ -46,8 +33,9 @@ export class PersonComponent implements OnInit {
    * OnInit implementation
    */
   ngOnInit() {
-    this._http.get(this._backendURL.allPeople)
-      .filter(_ => !!_)
+    this._peopleService
+      .fetch()
+      .filter(_ => _.length > 0)
       .defaultIfEmpty([{}])
       .subscribe((persons: any[]) => this._person = persons.shift());
   }
@@ -56,9 +44,8 @@ export class PersonComponent implements OnInit {
    * Returns random people
    */
   random() {
-    this._http.get(this._backendURL.randomPeople)
-      .filter(_ => !!_)
-      .defaultIfEmpty({})
+    this._peopleService
+      .fetchRandom()
       .subscribe((person: any) => this._person = person);
   }
 }
