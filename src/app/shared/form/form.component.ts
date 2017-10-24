@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CustomValidators } from './custom-validators';
 
 @Component({
   selector: 'nwt-form',
@@ -136,7 +137,9 @@ export class FormComponent implements OnInit, OnChanges {
       lastname: new FormControl('', Validators.compose([
         Validators.required, Validators.minLength(2)
       ])),
-      email: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.compose([
+        Validators.required, CustomValidators.googleEmail
+      ])),
       photo: new FormControl('https://randomuser.me/api/portraits/lego/6.jpg'),
       address: new FormGroup({
         street: new FormControl(''),
