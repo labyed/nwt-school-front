@@ -29,10 +29,11 @@ import { FormComponent } from './shared/form/form.component';
 import { UpdateComponent } from './update/update.component';
 import { PeopleService } from './shared/people-service/people.service';
 import { NaPipe } from './shared/na-pipe/na.pipe';
+import { BadgeDirective } from './shared/badge/badge.directive';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, PersonComponent, PeopleComponent, CardComponent,
-    DialogComponent, FormComponent, UpdateComponent, NaPipe],
+    DialogComponent, FormComponent, UpdateComponent, NaPipe, BadgeDirective],
   entryComponents: [DialogComponent],
   imports: [
     BrowserModule,
